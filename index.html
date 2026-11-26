@@ -6,77 +6,96 @@
   <meta name="description" content="Browse Weston's independent apps for Axis cameras: remote access, video, automation and device monitoring.">
   <title>Axis camera project hub | Weston (Moshe)</title>
   <style>
-    :root { color-scheme: light dark; --bg:#f7f8fa; --panel:white; --ink:#192231; --muted:#505e70; --line:#cdd4df; --accent:#154fb8; font:100%/1.55 system-ui,sans-serif; }
-    @media (prefers-color-scheme:dark) { :root { --bg:#10151e; --panel:#19212d; --ink:#eef2f9; --muted:#b6c0cf; --line:#394554; --accent:#91baff; } }
+    :root { color-scheme: light dark; --bg:#f4f6fa; --panel:#fff; --ink:#152033; --muted:#4f5d70; --line:#d5dce6; --accent:#1553c7; --c:var(--accent); font:100%/1.55 system-ui,sans-serif; }
+    @media (prefers-color-scheme:dark) { :root { --bg:#0d121a; --panel:#161e2a; --ink:#eef2f9; --muted:#b0bccc; --line:#2f3b4b; --accent:#8db6ff; } }
     * { box-sizing:border-box; }
-    body { margin:auto; max-width:72rem; padding:0 clamp(1rem,4vw,3rem); color:var(--ink); background:var(--bg); }
-    header,footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.75rem; padding:1.25rem 0; border-bottom:1px solid var(--line); }
-    footer { border-block:1px solid var(--line); margin-top:3rem; color:var(--muted); }
+    body { margin:0; color:var(--ink); background:var(--bg); }
+    .wrap { margin:auto; max-width:76rem; padding:0 clamp(1rem,4vw,3rem); }
     a { color:var(--accent); text-underline-offset:.2em; }
-    a:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
-    .intro { padding:clamp(2rem,5vw,4rem) 0 1.5rem; }
-    h1,h2 { line-height:1.15; letter-spacing:-.035em; margin:0; }
-    h1 { font-size:clamp(2.4rem,6vw,4.4rem); text-wrap:balance; }
-    .intro p { color:var(--muted); max-width:60ch; font-size:1.1rem; }
-    nav { display:flex; flex-wrap:wrap; gap:.5rem; }
-    nav a { padding:.35rem .85rem; border:1px solid var(--line); border-radius:2rem; text-decoration:none; }
-    nav a:hover { border-color:var(--accent); }
-    section { padding-top:2rem; }
-    h2 { font-size:1.65rem; margin-bottom:1rem; }
-    ul { padding:0; margin:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap:.8rem; }
-    li a { display:block; height:100%; padding:1.1rem; border:1px solid var(--line); border-radius:.8rem; background:var(--panel); text-decoration:none; }
-    li a:hover, li a:focus-visible { border-color:var(--accent); }
-    li a:hover strong { text-decoration:underline; }
-    li strong { display:block; font-size:1.1rem; }
-    li span { display:block; margin-top:.35rem; color:var(--muted); }
+    a:focus-visible { outline:3px solid var(--c); outline-offset:3px; }
+    .hero { color:#fff; background:radial-gradient(circle at 85% 0%,#7b4dff 0,transparent 45%),radial-gradient(circle at 0% 100%,#00a6a6 0,transparent 50%),linear-gradient(135deg,#0d1f45,#13306b); }
+    .hero a { color:#fff; }
+    header { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.75rem; padding:1.25rem 0; }
+    .intro { padding:clamp(2rem,6vw,4.5rem) 0 clamp(2rem,5vw,3.5rem); }
+    h1,h2,h3 { line-height:1.15; letter-spacing:-.03em; margin:0; }
+    h1 { font-size:clamp(2.4rem,6vw,4.6rem); text-wrap:balance; max-width:14ch; }
+    .intro p { color:#d7e2ff; max-width:58ch; font-size:1.15rem; }
+    nav { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
+    nav a { padding:.45rem 1rem; border-radius:2rem; text-decoration:none; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); }
+    nav a:hover { background:rgba(255,255,255,.25); }
+    nav b { opacity:.7; font-weight:600; margin-left:.35rem; }
+    section { padding-top:3rem; scroll-margin-top:1rem; }
+    #video { --c:#e0436b; } #events { --c:#d9821e; } #metrics { --c:#0b9b8a; } #access { --c:#5b5bf0; }
+    @media (prefers-color-scheme:dark) { #video { --c:#ff7d9c; } #events { --c:#ffb35c; } #metrics { --c:#45d6c3; } #access { --c:#9d9dff; } }
+    h2 { font-size:1.75rem; display:flex; align-items:center; gap:.6rem; }
+    h2::before { content:""; width:.7rem; height:1.6rem; border-radius:.3rem; background:var(--c); }
+    section > p { color:var(--muted); margin:.4rem 0 1.25rem; }
+    ul { padding:0; margin:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,19rem),1fr)); gap:1.25rem; }
+    li a { display:flex; flex-direction:column; height:100%; border:1px solid var(--line); border-radius:1rem; overflow:hidden; background:var(--panel); color:var(--ink); text-decoration:none; transition:transform .2s,box-shadow .2s,border-color .2s; }
+    li a:hover, li a:focus-visible { transform:translateY(-4px); border-color:var(--c); box-shadow:0 14px 30px -12px color-mix(in srgb,var(--c) 55%,transparent); }
+    .shot { position:relative; aspect-ratio:16/10; overflow:hidden; background:color-mix(in srgb,var(--c) 14%,var(--panel)); border-bottom:3px solid var(--c); }
+    .shot iframe { position:absolute; inset:0; width:400%; height:400%; border:0; transform:scale(.25); transform-origin:0 0; pointer-events:none; background:#fff; }
+    .shot::after { content:"Live demo"; position:absolute; right:.6rem; top:.6rem; padding:.15rem .55rem; border-radius:1rem; font-size:.75rem; font-weight:600; color:#fff; background:var(--c); }
+    .body { padding:1rem 1.15rem 1.2rem; }
+    h3 { font-size:1.2rem; }
+    li a:hover h3 { color:var(--c); }
+    .body p { margin:.4rem 0 0; color:var(--muted); }
+    @media (prefers-reduced-motion:reduce) { li a { transition:none; } li a:hover, li a:focus-visible { transform:none; } }
+    footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.75rem; margin-top:4rem; padding:1.5rem 0; border-top:1px solid var(--line); color:var(--muted); }
   </style>
 </head>
 <body>
+  <div class="hero"><div class="wrap">
   <header><strong>Weston (Moshe)</strong><a href="https://github.com/Mo3he">GitHub profile</a></header>
-  <main>
     <div class="intro">
       <h1>Axis camera project hub</h1>
       <p>Independent apps I build for Axis devices. Open a project to see what it does, explore a sample preview, or download it for your camera.</p>
-      <nav aria-label="Project categories"><a href="#access">Remote access</a><a href="#video">Video &amp; recordings</a><a href="#events">Automation</a><a href="#metrics">Monitoring</a></nav>
+      <nav aria-label="Project categories"><a href="#video">Video &amp; recordings<b>4</b></a><a href="#events">Automation<b>3</b></a><a href="#metrics">Monitoring<b>2</b></a><a href="#access">Remote access<b>8</b></a></nav>
     </div>
+  </div></div>
+  <main class="wrap">
     <section id="video">
       <h2>Video &amp; recordings</h2>
+      <p>Stream, record, find and caption what the camera sees.</p>
       <ul>
-        <li><a href="/Axis_Cam_MediaMTX/"><strong>MediaMTX</strong><span>Share a live camera stream and browse recordings on a timeline.</span></a></li>
-        <li><a href="/Axis_Cam_Recording_Export/"><strong>Recording Export</strong><span>Find an incident on the SD card, trim the footage and export clips in bulk.</span></a></li>
-        <li><a href="/Axis-Whisper/"><strong>Whisper Subtitles</strong><span>Turn microphone audio into captions without sending it to the cloud.</span></a></li>
-        <li><a href="/Axis_Cam_go2rtc/"><strong>go2rtc</strong><span>Bring camera video into a browser or an existing Home Assistant streaming setup.</span></a></li>
+        <li><a href="/Axis_Cam_MediaMTX/"><div class="shot"><iframe src="/Axis_Cam_MediaMTX/preview/" title="MediaMTX demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>MediaMTX</h3><p>Share a live camera stream and browse recordings on a timeline.</p></div></a></li>
+        <li><a href="/Axis_Cam_Recording_Export/"><div class="shot"><iframe src="/Axis_Cam_Recording_Export/preview/" title="Recording Export demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>Recording Export</h3><p>Find an incident on the SD card, trim the footage and export clips in bulk.</p></div></a></li>
+        <li><a href="/Axis-Whisper/"><div class="shot"><iframe src="/Axis-Whisper/preview/" title="Whisper Subtitles demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>Whisper Subtitles</h3><p>Turn microphone audio into captions without sending it to the cloud.</p></div></a></li>
+        <li><a href="/Axis_Cam_go2rtc/"><div class="shot"><iframe src="/Axis_Cam_go2rtc/preview/" title="go2rtc demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>go2rtc</h3><p>Bring camera video into a browser or an existing Home Assistant streaming setup.</p></div></a></li>
       </ul>
     </section>
     <section id="events">
       <h2>Automation &amp; industrial integrations</h2>
+      <p>Make the camera react to events and talk to building and factory systems.</p>
       <ul>
-        <li><a href="/Event-Engine-ACAP/"><strong>Event Engine</strong><span>Build rules on the camera: when an event matches, record, notify or trigger another system.</span></a></li>
-        <li><a href="/Axis_Cam_BACnet/"><strong>BACnet Server</strong><span>Let a building management system read camera events and sensor values.</span></a></li>
-        <li><a href="/Axis_Cam_Sparkplug/"><strong>Sparkplug Edge Node</strong><span>Publish camera and sensor readings to an industrial monitoring system over MQTT.</span></a></li>
+        <li><a href="/Event-Engine-ACAP/"><div class="shot"><iframe src="/Event-Engine-ACAP/preview/" title="Event Engine demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>Event Engine</h3><p>Build rules on the camera: when an event matches, record, notify or trigger another system.</p></div></a></li>
+        <li><a href="/Axis_Cam_BACnet/"><div class="shot"><iframe src="/Axis_Cam_BACnet/preview/" title="BACnet Server demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>BACnet Server</h3><p>Let a building management system read camera events and sensor values.</p></div></a></li>
+        <li><a href="/Axis_Cam_Sparkplug/"><div class="shot"><iframe src="/Axis_Cam_Sparkplug/preview/" title="Sparkplug Edge Node demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>Sparkplug Edge Node</h3><p>Publish camera and sensor readings to an industrial monitoring system over MQTT.</p></div></a></li>
       </ul>
     </section>
     <section id="metrics">
       <h2>Monitoring &amp; telemetry</h2>
+      <p>Keep an eye on device health and send readings to your own dashboards.</p>
       <ul>
-        <li><a href="/Axis_Cam_Metrics/"><strong>Camera Metrics</strong><span>See how the device is doing now and check its temperature, storage and CPU history.</span></a></li>
-        <li><a href="/acap_influxdb_data_collector/"><strong>InfluxDB Data Collector</strong><span>Send device and sensor readings to your own InfluxDB v2 database.</span></a></li>
+        <li><a href="/Axis_Cam_Metrics/"><div class="shot"><iframe src="/Axis_Cam_Metrics/preview/" title="Camera Metrics demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>Camera Metrics</h3><p>See how the device is doing now and check its temperature, storage and CPU history.</p></div></a></li>
+        <li><a href="/acap_influxdb_data_collector/"><div class="shot"><iframe src="/acap_influxdb_data_collector/preview/" title="InfluxDB Data Collector demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>InfluxDB Data Collector</h3><p>Send device and sensor readings to your own InfluxDB v2 database.</p></div></a></li>
       </ul>
     </section>
     <section id="access">
       <h2>Remote access</h2>
+      <p>Reach your camera securely from anywhere, using the VPN you already have.</p>
       <ul>
-        <li><a href="/Axis_Cam_Tailscale/"><strong>Tailscale</strong><span>Join the camera to your tailnet for access from your own devices.</span></a></li>
-        <li><a href="/Axis_Cam_NetBird/"><strong>NetBird</strong><span>Enroll a camera in NetBird Cloud or a self-hosted network.</span></a></li>
-        <li><a href="/Axis_Cam_ZeroTier/"><strong>ZeroTier</strong><span>Reach selected camera services from authorized members of your ZeroTier network.</span></a></li>
-        <li><a href="/Axis_Cam_WireGuard/"><strong>WireGuard Client</strong><span>Connect the camera to a WireGuard server you already run.</span></a></li>
-        <li><a href="/Axis_Cam_WireGuard_Server/"><strong>WireGuard Server</strong><span>Connect your phone or laptop to the camera instead, with optional access to its local network.</span></a></li>
-        <li><a href="/Axis_Cam_OpenVPN/"><strong>OpenVPN</strong><span>Import an OpenVPN profile to connect the camera to your VPN gateway.</span></a></li>
-        <li><a href="/Axis_Cam_OpenConnect/"><strong>OpenConnect</strong><span>Connect a camera to a GlobalProtect or Prisma Access gateway.</span></a></li>
-        <li><a href="/Axis_Cam_Tailcat/"><strong>Tailcat</strong><span>Set up a temporary troubleshooting tunnel without joining a tailnet.</span></a></li>
+        <li><a href="/Axis_Cam_Tailscale/"><div class="shot"><iframe src="/Axis_Cam_Tailscale/preview/" title="Tailscale demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>Tailscale</h3><p>Join the camera to your tailnet for access from your own devices.</p></div></a></li>
+        <li><a href="/Axis_Cam_NetBird/"><div class="shot"><iframe src="/Axis_Cam_NetBird/preview/" title="NetBird demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>NetBird</h3><p>Enroll a camera in NetBird Cloud or a self-hosted network.</p></div></a></li>
+        <li><a href="/Axis_Cam_ZeroTier/"><div class="shot"><iframe src="/Axis_Cam_ZeroTier/preview/" title="ZeroTier demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>ZeroTier</h3><p>Reach selected camera services from authorized members of your ZeroTier network.</p></div></a></li>
+        <li><a href="/Axis_Cam_WireGuard/"><div class="shot"><iframe src="/Axis_Cam_WireGuard/preview/" title="WireGuard Client demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>WireGuard Client</h3><p>Connect the camera to a WireGuard server you already run.</p></div></a></li>
+        <li><a href="/Axis_Cam_WireGuard_Server/"><div class="shot"><iframe src="/Axis_Cam_WireGuard_Server/preview/" title="WireGuard Server demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>WireGuard Server</h3><p>Connect your phone or laptop to the camera instead, with optional access to its local network.</p></div></a></li>
+        <li><a href="/Axis_Cam_OpenVPN/"><div class="shot"><iframe src="/Axis_Cam_OpenVPN/preview/" title="OpenVPN demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>OpenVPN</h3><p>Import an OpenVPN profile to connect the camera to your VPN gateway.</p></div></a></li>
+        <li><a href="/Axis_Cam_OpenConnect/"><div class="shot"><iframe src="/Axis_Cam_OpenConnect/preview/" title="OpenConnect demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>OpenConnect</h3><p>Connect a camera to a GlobalProtect or Prisma Access gateway.</p></div></a></li>
+        <li><a href="/Axis_Cam_Tailcat/"><div class="shot"><iframe src="/Axis_Cam_Tailcat/preview/" title="Tailcat demo preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="body"><h3>Tailcat</h3><p>Set up a temporary troubleshooting tunnel without joining a tailnet.</p></div></a></li>
       </ul>
     </section>
   </main>
-  <footer><span>Independent projects, not official Axis products.</span><a href="https://github.com/Mo3he#readme">More from Weston</a></footer>
+  <div class="wrap"><footer><span>Independent projects, not official Axis products.</span><a href="https://github.com/Mo3he#readme">More from Weston</a></footer></div>
 </body>
 </html>
