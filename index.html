@@ -39,18 +39,19 @@
       <h2>Reach a camera remotely</h2>
       <p>Start with the network you already use. For WireGuard, the choice depends on which end accepts the connection.</p>
       <ul>
-        <li><strong>Join an existing network:</strong> use <a href="/Axis_Cam_Tailscale/">Tailscale</a> for a tailnet, <a href="https://github.com/Mo3he/Axis_Cam_NetBird#installation">NetBird</a> for a NetBird network, or <a href="https://github.com/Mo3he/Axis_Cam_ZeroTier#installation">ZeroTier</a> for a ZeroTier network.</li>
-        <li><strong>Run your own WireGuard:</strong> choose the <a href="https://github.com/Mo3he/Axis_Cam_WireGuard#installation">WireGuard client</a> if the camera connects to your server. Choose <a href="https://github.com/Mo3he/Axis_Cam_WireGuard_Server#installation">WireGuard Server</a> if peers connect to the camera as their gateway.</li>
-        <li><strong>Connect to a VPN gateway:</strong> use <a href="https://github.com/Mo3he/Axis_Cam_OpenVPN#installation">OpenVPN</a> for an OpenVPN endpoint or <a href="https://github.com/Mo3he/Axis_Cam_OpenConnect#installation">OpenConnect</a> for GlobalProtect / Prisma Access.</li>
-        <li><strong>Need a one-off tunnel?</strong> <a href="https://github.com/Mo3he/Axis_Cam_Tailcat#installation">Tailcat</a> gives you ad-hoc access without joining a tailnet.</li>
+        <li><strong>Join an existing network:</strong> use <a href="/Axis_Cam_Tailscale/">Tailscale</a> for a tailnet, <a href="/Axis_Cam_NetBird/">NetBird</a> for a NetBird network, or <a href="/Axis_Cam_ZeroTier/">ZeroTier</a> for a ZeroTier network.</li>
+        <li><strong>Run your own WireGuard:</strong> choose the <a href="/Axis_Cam_WireGuard/">WireGuard client</a> if the camera connects to your server. Choose <a href="/Axis_Cam_WireGuard_Server/">WireGuard Server</a> if peers connect to the camera as their gateway.</li>
+        <li><strong>Connect to a VPN gateway:</strong> use <a href="/Axis_Cam_OpenVPN/">OpenVPN</a> for an OpenVPN endpoint or <a href="/Axis_Cam_OpenConnect/">OpenConnect</a> for GlobalProtect / Prisma Access.</li>
+        <li><strong>Need a one-off tunnel?</strong> <a href="/Axis_Cam_Tailcat/">Tailcat</a> gives you ad-hoc access without joining a tailnet.</li>
       </ul>
     </section>
     <section id="video">
       <span class="label">02 / Video</span>
       <h2>Watch live or take recordings with you</h2>
       <ul>
-        <li><strong>Live video:</strong> use <a href="/Axis_Cam_MediaMTX/">MediaMTX</a> to serve streams over RTSP, HLS, or WebRTC. If your Home Assistant setup already uses go2rtc, run <a href="https://github.com/Mo3he/Axis_Cam_go2rtc#installation">go2rtc</a> on the camera.</li>
-        <li><strong>Already recorded?</strong> Use <a href="https://github.com/Mo3he/Axis_Cam_Recording_Export#installation">Recording Export</a> to review SD card footage and download clips in bulk from your browser.</li>
+        <li><strong>Live video:</strong> use <a href="/Axis_Cam_MediaMTX/">MediaMTX</a> to serve streams over RTSP, HLS, or WebRTC. If your Home Assistant setup already uses go2rtc, run <a href="/Axis_Cam_go2rtc/">go2rtc</a> on the camera.</li>
+        <li><strong>Already recorded?</strong> Use <a href="/Axis_Cam_Recording_Export/">Recording Export</a> to review SD card footage and download clips in bulk from your browser.</li>
+        <li><strong>Need speech captions?</strong> <a href="/Axis-Whisper/">Whisper Subtitles</a> transcribes camera audio on-device and can overlay captions on video.</li>
       </ul>
     </section>
     <section id="events">
@@ -58,7 +59,7 @@
       <h2>Make something happen when an event fires</h2>
       <ul>
         <li><strong>Run a rule on the camera:</strong> use <a href="/Event-Engine-ACAP/">Event Engine</a> to combine triggers and conditions, then send a webhook or MQTT message.</li>
-        <li><strong>Integrate with an existing system:</strong> expose camera events to a building controller with <a href="/Axis_Cam_BACnet/">BACnet/IP</a>, or connect cameras and sensors to a SCADA host with <a href="https://github.com/Mo3he/Axis_Cam_Sparkplug#installation">MQTT Sparkplug B</a>.</li>
+        <li><strong>Integrate with an existing system:</strong> expose camera events to a building controller with <a href="/Axis_Cam_BACnet/">BACnet/IP</a>, or connect cameras and sensors to a SCADA host with <a href="/Axis_Cam_Sparkplug/">MQTT Sparkplug B</a>.</li>
       </ul>
     </section>
     <section id="metrics">
@@ -66,7 +67,7 @@
       <h2>See how a device is doing</h2>
       <ul>
         <li><strong>Check it now:</strong> open a live dashboard with <a href="/Axis_Cam_Metrics/">Camera Metrics</a>. It also exports readings to Prometheus or MQTT.</li>
-        <li><strong>Keep a history:</strong> use the <a href="https://github.com/Mo3he/acap_influxdb_data_collector#installation">InfluxDB collector</a> to send device and sensor readings to InfluxDB v2.</li>
+        <li><strong>Keep a history:</strong> use the <a href="/acap_influxdb_data_collector/">InfluxDB collector</a> to send device and sensor readings to InfluxDB v2.</li>
       </ul>
     </section>
   </main>
