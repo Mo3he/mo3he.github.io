@@ -3,74 +3,80 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Choose an Axis camera app for remote access, video, automation, or telemetry. A field guide by Weston (Moshe).">
-  <title>Axis camera field guide | Weston (Moshe)</title>
+  <meta name="description" content="Browse Weston's independent apps for Axis cameras: remote access, video, automation and device monitoring.">
+  <title>Axis camera project hub | Weston (Moshe)</title>
   <style>
-    :root { color-scheme: light; font: 100%/1.6 system-ui, sans-serif; color: #172e2c; background: #f5f4ed; }
-    * { box-sizing: border-box; }
-    body { max-width: 68rem; margin: auto; padding: 1.5rem clamp(1rem, 5vw, 4rem); }
-    header, footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-block: 1px solid #bac4ba; }
-    a { color: #005d52; text-underline-offset: .2em; }
-    a:focus-visible { outline: 3px solid #b34b00; outline-offset: 3px; }
-    h1, h2 { line-height: 1.1; letter-spacing: -.035em; }
-    h1 { font-size: clamp(2.6rem, 7vw, 5rem); max-width: 16ch; margin: .2em 0; }
-    h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); margin: .2em 0; }
-    .label { font: bold .8rem/1.4 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: #48615b; }
-    .intro { padding: 3rem 0 2rem; }
-    .intro p { max-width: 56ch; }
-    nav { display: flex; flex-wrap: wrap; gap: .5rem; }
-    nav a { padding: .4em .9em; border: 1px solid #9cafa4; border-radius: 2rem; }
-    section { border-top: 2px solid #26463d; padding: 1.25rem 0 2rem; }
-    ul { padding-left: 1.35rem; max-width: 78ch; }
-    li { margin: .6rem 0; }
+    :root { color-scheme: light dark; --bg:#f7f8fa; --panel:white; --ink:#192231; --muted:#505e70; --line:#cdd4df; --accent:#154fb8; font:100%/1.55 system-ui,sans-serif; }
+    @media (prefers-color-scheme:dark) { :root { --bg:#10151e; --panel:#19212d; --ink:#eef2f9; --muted:#b6c0cf; --line:#394554; --accent:#91baff; } }
+    * { box-sizing:border-box; }
+    body { margin:auto; max-width:72rem; padding:0 clamp(1rem,4vw,3rem); color:var(--ink); background:var(--bg); }
+    header,footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.75rem; padding:1.25rem 0; border-bottom:1px solid var(--line); }
+    footer { border-block:1px solid var(--line); margin-top:3rem; color:var(--muted); }
+    a { color:var(--accent); text-underline-offset:.2em; }
+    a:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+    .intro { padding:clamp(2rem,5vw,4rem) 0 1.5rem; }
+    h1,h2 { line-height:1.15; letter-spacing:-.035em; margin:0; }
+    h1 { font-size:clamp(2.4rem,6vw,4.4rem); text-wrap:balance; }
+    .intro p { color:var(--muted); max-width:60ch; font-size:1.1rem; }
+    nav { display:flex; flex-wrap:wrap; gap:.5rem; }
+    nav a { padding:.35rem .85rem; border:1px solid var(--line); border-radius:2rem; text-decoration:none; }
+    nav a:hover { border-color:var(--accent); }
+    section { padding-top:2rem; }
+    h2 { font-size:1.65rem; margin-bottom:1rem; }
+    ul { padding:0; margin:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap:.8rem; }
+    li a { display:block; height:100%; padding:1.1rem; border:1px solid var(--line); border-radius:.8rem; background:var(--panel); text-decoration:none; }
+    li a:hover, li a:focus-visible { border-color:var(--accent); }
+    li a:hover strong { text-decoration:underline; }
+    li strong { display:block; font-size:1.1rem; }
+    li span { display:block; margin-top:.35rem; color:var(--muted); }
   </style>
 </head>
 <body>
   <header><strong>Weston (Moshe)</strong><a href="https://github.com/Mo3he">GitHub profile</a></header>
   <main>
     <div class="intro">
-      <span class="label">Independent project guide / Axis cameras</span>
-      <h1>What can your camera do?</h1>
-      <p>I build apps that run on Axis cameras. Pick what you want to do below. Each link opens the project page, or its installation instructions on GitHub.</p>
-      <nav aria-label="Choose a task"><a href="#access">Remote access</a><a href="#video">Video</a><a href="#events">Automation</a><a href="#metrics">Telemetry</a></nav>
+      <h1>Axis camera project hub</h1>
+      <p>Independent apps I build for Axis devices. Open a project to see what it does, explore a sample preview, or download it for your camera.</p>
+      <nav aria-label="Project categories"><a href="#access">Remote access</a><a href="#video">Video &amp; recordings</a><a href="#events">Automation</a><a href="#metrics">Monitoring</a></nav>
     </div>
-    <section id="access">
-      <span class="label">01 / Remote access</span>
-      <h2>Reach a camera remotely</h2>
-      <p>Start with the network you already use. For WireGuard, the choice depends on which end accepts the connection.</p>
-      <ul>
-        <li><strong>Join an existing network:</strong> use <a href="/Axis_Cam_Tailscale/">Tailscale</a> for a tailnet, <a href="/Axis_Cam_NetBird/">NetBird</a> for a NetBird network, or <a href="/Axis_Cam_ZeroTier/">ZeroTier</a> for a ZeroTier network.</li>
-        <li><strong>Run your own WireGuard:</strong> choose the <a href="/Axis_Cam_WireGuard/">WireGuard client</a> if the camera connects to your server. Choose <a href="/Axis_Cam_WireGuard_Server/">WireGuard Server</a> if peers connect to the camera as their gateway.</li>
-        <li><strong>Connect to a VPN gateway:</strong> use <a href="/Axis_Cam_OpenVPN/">OpenVPN</a> for an OpenVPN endpoint or <a href="/Axis_Cam_OpenConnect/">OpenConnect</a> for GlobalProtect / Prisma Access.</li>
-        <li><strong>Need a one-off tunnel?</strong> <a href="/Axis_Cam_Tailcat/">Tailcat</a> gives you ad-hoc access without joining a tailnet.</li>
-      </ul>
-    </section>
     <section id="video">
-      <span class="label">02 / Video</span>
-      <h2>Watch live or take recordings with you</h2>
+      <h2>Video &amp; recordings</h2>
       <ul>
-        <li><strong>Live video:</strong> use <a href="/Axis_Cam_MediaMTX/">MediaMTX</a> to serve streams over RTSP, HLS, or WebRTC. If your Home Assistant setup already uses go2rtc, run <a href="/Axis_Cam_go2rtc/">go2rtc</a> on the camera.</li>
-        <li><strong>Already recorded?</strong> Use <a href="/Axis_Cam_Recording_Export/">Recording Export</a> to review SD card footage and download clips in bulk from your browser.</li>
-        <li><strong>Need speech captions?</strong> <a href="/Axis-Whisper/">Whisper Subtitles</a> transcribes camera audio on-device and can overlay captions on video.</li>
+        <li><a href="/Axis_Cam_MediaMTX/"><strong>MediaMTX</strong><span>Share a live camera stream and browse recordings on a timeline.</span></a></li>
+        <li><a href="/Axis_Cam_Recording_Export/"><strong>Recording Export</strong><span>Find an incident on the SD card, trim the footage and export clips in bulk.</span></a></li>
+        <li><a href="/Axis-Whisper/"><strong>Whisper Subtitles</strong><span>Turn microphone audio into captions without sending it to the cloud.</span></a></li>
+        <li><a href="/Axis_Cam_go2rtc/"><strong>go2rtc</strong><span>Bring camera video into a browser or an existing Home Assistant streaming setup.</span></a></li>
       </ul>
     </section>
     <section id="events">
-      <span class="label">03 / Automation</span>
-      <h2>Make something happen when an event fires</h2>
+      <h2>Automation &amp; industrial integrations</h2>
       <ul>
-        <li><strong>Run a rule on the camera:</strong> use <a href="/Event-Engine-ACAP/">Event Engine</a> to combine triggers and conditions, then send a webhook or MQTT message.</li>
-        <li><strong>Integrate with an existing system:</strong> expose camera events to a building controller with <a href="/Axis_Cam_BACnet/">BACnet/IP</a>, or connect cameras and sensors to a SCADA host with <a href="/Axis_Cam_Sparkplug/">MQTT Sparkplug B</a>.</li>
+        <li><a href="/Event-Engine-ACAP/"><strong>Event Engine</strong><span>Build rules on the camera: when an event matches, record, notify or trigger another system.</span></a></li>
+        <li><a href="/Axis_Cam_BACnet/"><strong>BACnet Server</strong><span>Let a building management system read camera events and sensor values.</span></a></li>
+        <li><a href="/Axis_Cam_Sparkplug/"><strong>Sparkplug Edge Node</strong><span>Publish camera and sensor readings to an industrial monitoring system over MQTT.</span></a></li>
       </ul>
     </section>
     <section id="metrics">
-      <span class="label">04 / Telemetry</span>
-      <h2>See how a device is doing</h2>
+      <h2>Monitoring &amp; telemetry</h2>
       <ul>
-        <li><strong>Check it now:</strong> open a live dashboard with <a href="/Axis_Cam_Metrics/">Camera Metrics</a>. It also exports readings to Prometheus or MQTT.</li>
-        <li><strong>Keep a history:</strong> use the <a href="/acap_influxdb_data_collector/">InfluxDB collector</a> to send device and sensor readings to InfluxDB v2.</li>
+        <li><a href="/Axis_Cam_Metrics/"><strong>Camera Metrics</strong><span>See how the device is doing now and check its temperature, storage and CPU history.</span></a></li>
+        <li><a href="/acap_influxdb_data_collector/"><strong>InfluxDB Data Collector</strong><span>Send device and sensor readings to your own InfluxDB v2 database.</span></a></li>
+      </ul>
+    </section>
+    <section id="access">
+      <h2>Remote access</h2>
+      <ul>
+        <li><a href="/Axis_Cam_Tailscale/"><strong>Tailscale</strong><span>Join the camera to your tailnet for access from your own devices.</span></a></li>
+        <li><a href="/Axis_Cam_NetBird/"><strong>NetBird</strong><span>Enroll a camera in NetBird Cloud or a self-hosted network.</span></a></li>
+        <li><a href="/Axis_Cam_ZeroTier/"><strong>ZeroTier</strong><span>Reach selected camera services from authorized members of your ZeroTier network.</span></a></li>
+        <li><a href="/Axis_Cam_WireGuard/"><strong>WireGuard Client</strong><span>Connect the camera to a WireGuard server you already run.</span></a></li>
+        <li><a href="/Axis_Cam_WireGuard_Server/"><strong>WireGuard Server</strong><span>Connect your phone or laptop to the camera instead, with optional access to its local network.</span></a></li>
+        <li><a href="/Axis_Cam_OpenVPN/"><strong>OpenVPN</strong><span>Import an OpenVPN profile to connect the camera to your VPN gateway.</span></a></li>
+        <li><a href="/Axis_Cam_OpenConnect/"><strong>OpenConnect</strong><span>Connect a camera to a GlobalProtect or Prisma Access gateway.</span></a></li>
+        <li><a href="/Axis_Cam_Tailcat/"><strong>Tailcat</strong><span>Set up a temporary troubleshooting tunnel without joining a tailnet.</span></a></li>
       </ul>
     </section>
   </main>
-  <footer><span>“The camera didn't say no.”</span><a href="https://github.com/Mo3he#readme">Explore the full project list</a></footer>
+  <footer><span>Independent projects, not official Axis products.</span><a href="https://github.com/Mo3he#readme">More from Weston</a></footer>
 </body>
 </html>
