@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Find every recording around an incident, trim it to the moment that matters and export the clips in one go.">
+  <title>Pull clips of an incident from SD card recordings | Recipes | Weston (Moshe)</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f4f6fa; --panel:#fff; --ink:#152033; --muted:#4f5d70; --line:#d5dce6; --accent:#1553c7; --c:var(--accent); --shot:#e9edf3; font:100%/1.55 system-ui,sans-serif; }
+    @media (prefers-color-scheme:dark) { :root { --bg:#0d121a; --panel:#161e2a; --ink:#eef2f9; --muted:#b0bccc; --line:#2f3b4b; --accent:#8db6ff; --shot:#222c3a; } }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--bg); }
+    .wrap { margin:auto; max-width:76rem; padding:0 clamp(1rem,4vw,3rem); }
+    a { color:var(--accent); text-underline-offset:.2em; }
+    a:focus-visible, button:focus-visible { outline:3px solid var(--c); outline-offset:3px; }
+    .hero { color:#fff; background:radial-gradient(circle at 85% 0%,#7b4dff 0,transparent 45%),radial-gradient(circle at 0% 100%,#00a6a6 0,transparent 50%),linear-gradient(135deg,#0d1f45,#13306b); }
+    .hero a { color:#fff; }
+    header { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.75rem; padding:1.25rem 0; }
+    .intro { padding:clamp(2rem,6vw,4.5rem) 0 clamp(2rem,5vw,3.5rem); }
+    h1,h2,h3 { line-height:1.15; letter-spacing:-.03em; margin:0; }
+    h1 { font-size:clamp(2.4rem,6vw,4.6rem); text-wrap:balance; max-width:14ch; }
+    .intro p { color:#d7e2ff; max-width:58ch; font-size:1.15rem; }
+    nav { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
+    nav a { padding:.45rem 1rem; border-radius:2rem; text-decoration:none; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); }
+    nav a:hover { background:rgba(255,255,255,.25); }
+    nav b { opacity:.7; font-weight:600; margin-left:.35rem; }
+    section { padding-top:3rem; scroll-margin-top:1rem; }
+    #video { --c:#e0436b; } #events { --c:#d9821e; } #metrics { --c:#0b9b8a; } #access { --c:#5b5bf0; } #recipes { --c:#7b4dff; }
+    @media (prefers-color-scheme:dark) { #video { --c:#ff7d9c; } #events { --c:#ffb35c; } #metrics { --c:#45d6c3; } #access { --c:#9d9dff; } #recipes { --c:#b59bff; } }
+    h2 { font-size:1.75rem; display:flex; align-items:center; gap:.6rem; }
+    h2::before { content:""; width:.7rem; height:1.6rem; border-radius:.3rem; background:var(--c); }
+    section > p { color:var(--muted); margin:.4rem 0 1.25rem; }
+    footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.75rem; margin-top:4rem; padding:1.5rem 0; border-top:1px solid var(--line); color:var(--muted); }
+    footer nav { margin:0; gap:1.25rem; }
+    footer nav a { padding:0; border:0; background:none; color:var(--accent); text-decoration:underline; }
+    .goals { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; padding-top:2rem; }
+    .goals[hidden] { display:none; }
+    .goals > span { font-weight:700; margin-right:.25rem; }
+    .goals button { font:inherit; font-size:.95rem; padding:.4rem .95rem; border-radius:2rem; border:1px solid var(--line); background:var(--panel); color:var(--ink); cursor:pointer; }
+    .goals button:hover { border-color:var(--accent); }
+    .goals button[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:var(--bg); }
+    .status { margin:.6rem 0 0; color:var(--muted); min-height:1.55em; }
+    .status button { font:inherit; color:var(--accent); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer; }
+    [data-hide] { display:none !important; }
+    .featured { --c:#0b9b8a; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); margin-top:2rem; border:1px solid var(--line); border-radius:1.25rem; overflow:hidden; background:var(--panel); }
+    .featured .shot { aspect-ratio:auto; min-height:100%; border:0; border-right:1px solid var(--line); }
+    .featured .copy { padding:clamp(1.25rem,3vw,2.25rem); display:flex; flex-direction:column; gap:.75rem; }
+    .kicker { font-size:.8rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--c); }
+    .featured h2::before { display:none; }
+    .featured h2 { font-size:clamp(1.6rem,3vw,2.2rem); }
+    .featured p { margin:0; color:var(--muted); }
+    .featured ul { display:block; padding-left:1.1rem; color:var(--muted); }
+    .featured ul li { list-style:disc; }
+    .cta { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.5rem; }
+    .cta a { padding:.55rem 1.1rem; border-radius:.6rem; font-weight:700; text-decoration:none; border:1px solid var(--c); color:var(--c); }
+    .cta a:first-child { background:var(--c); color:#fff; }
+    @media (prefers-color-scheme:dark) { .cta a:first-child { color:#0d121a; } }
+    @media (max-width:760px) { .featured { grid-template-columns:1fr; } .featured .shot { aspect-ratio:16/10; border-right:0; border-bottom:1px solid var(--line); } }
+    .intro { padding:clamp(1.5rem,4vw,3rem) 0 clamp(1.75rem,4vw,2.75rem); }
+    .intro h1 { font-size:clamp(2rem,5vw,3.4rem); max-width:22ch; }
+    .crumb { color:#d7e2ff; }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) 19rem; gap:2.5rem; align-items:start; }
+    @media (max-width:860px) { .layout { grid-template-columns:1fr; } }
+    article h2 { margin-top:2.25rem; font-size:1.45rem; }
+    article p, article li { color:var(--ink); }
+    article, article li { min-width:0; }
+    article ol { padding-left:1.3rem; display:grid; gap:.9rem; }
+    article ul { padding-left:1.2rem; display:grid; gap:.4rem; }
+    pre { overflow-x:auto; padding:.8rem 1rem; margin:.6rem 0 0; border-radius:.6rem; background:#0d1f45; color:#e7eeff; font-size:.85rem; }
+    code { font-size:.92em; }
+    table { border-collapse:collapse; width:100%; margin-top:.75rem; }
+    th, td { text-align:left; padding:.5rem .6rem; border-bottom:1px solid var(--line); }
+    aside { position:sticky; top:1rem; border:1px solid var(--line); border-top:4px solid #7b4dff; border-radius:1rem; background:var(--panel); padding:1.25rem; }
+    aside h2 { font-size:1.1rem; margin:0 0 .75rem; }
+    aside h2::before { display:none; }
+    aside dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:.45rem 1rem; }
+    aside dt { color:var(--muted); }
+    aside dd { margin:0; font-weight:600; }
+    aside .cta { flex-direction:column; margin-top:1.1rem; }
+    aside .cta a { text-align:center; }
+    .shotbig { margin:1.5rem 0 0; border:1px solid var(--line); border-radius:1rem; overflow:hidden; }
+    .shotbig img { display:block; width:100%; height:auto; }
+    .cta { display:flex; flex-wrap:wrap; gap:.6rem; }
+    .cta a { padding:.55rem 1.1rem; border-radius:.6rem; font-weight:700; text-decoration:none; border:1px solid #7b4dff; color:var(--accent); }
+    .cta a:first-child { background:#7b4dff; color:#fff; }
+  </style>
+</head>
+<body>
+  <div class="hero"><div class="wrap">
+  <header><a href="/">← Project hub</a><a href="/#recipes">All recipes</a></header>
+    <div class="intro">
+      <span class="crumb">Recipe</span>
+      <h1>Pull clips of an incident from SD card recordings</h1>
+      <p>Find every recording around an incident, trim it to the moment that matters and export the clips in one go.</p>
+    </div>
+  </div></div>
+  <main class="wrap">
+    <div class="layout">
+      <article>
+        <figure class="shotbig"><img src="/img/Axis_Cam_Recording_Export.webp" alt="The Recording Export app with sample data" width="800" height="500"></figure>
+        <h2>The situation</h2>
+        <p>After an incident, someone has to find the right footage, cut it down and hand it over. In the camera's own interface that means downloading recordings one at a time. Recording Export lists every recording with filters, lets you trim and exports a whole selection at once without re-encoding.</p>
+        <h2>What you need</h2>
+        <ul><li>An Axis camera with recordings on its SD card or a network share</li><li>A web browser (Chrome or Edge can save straight into a folder)</li></ul>
+        <h2>Steps</h2>
+        <ol><li>Download the latest <code>.eap</code> from the <a href="https://github.com/Mo3he/Axis_Cam_Recording_Export/releases">Recording Export releases</a>, install it under <b>Apps</b>, then open it with <b>Apps → Recording Export → Open</b>.</li><li>Pick the storage (SD card or network share) and narrow the list: a date range, a daily time window such as 22:00 to 06:00, or the event that triggered the recording.</li><li>Play a recording in the built-in player, at up to 8x, and mark a start and end so only that part is exported.</li><li>Select the recordings you need, choose MP4 or MKV and a file name pattern, for example camera name, date and time.</li><li>Export. Clips are processed one at a time with progress for each; failures are retried automatically.</li><li>Optionally save the CSV report and a metadata file next to each clip, so you have a record of what was handed over.</li></ol>
+        <h2>Good to know</h2>
+        <ul><li>The original video is kept without re-encoding, in the codec the camera recorded (H.264, H.265 or AV1).</li><li>If your browser cannot play a codec, you can still export the clip and play it in VLC.</li><li>In folder mode a cancelled export leaves no half-written file, so you can run the same selection again to resume.</li></ul>
+      </article>
+      <aside aria-label="Recipe details">
+        <h2>Recipe details</h2>
+        <dl><dt>Apps</dt><dd><a href="/Axis_Cam_Recording_Export/">Recording Export</a></dd><dt>Difficulty</dt><dd>Easy</dd><dt>Time</dt><dd>About 5 minutes</dd><dt>Status</dt><dd>Stable</dd></dl>
+        <div class="cta"><a href="/Axis_Cam_Recording_Export/preview/">Try the live demo</a><a href="/Axis_Cam_Recording_Export/">View project</a></div>
+      </aside>
+    </div>
+  </main>
+  <div class="wrap"><footer><span>Independent projects, not official Axis products.</span><a href="/">Back to the project hub</a></footer></div>
+</body>
+</html>
